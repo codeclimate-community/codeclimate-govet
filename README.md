@@ -10,6 +10,17 @@ govet examines Go source code and reports suspicious constructs, such as Printf 
 2. Run `codeclimate engines:enable govet`. This command both installs the engine and enables it in your `.codeclimate.yml` file.
 3. You're ready to analyze! Browse into your project's folder and run `codeclimate analyze`.
 
+### Building
+
+In order to build the docker image, you first need to compile a binary for the container. To do that, first [install goxc]() and then run
+
+```console
+goxc -bc="linux" -tasks-=go-install,go-vet,go-test,package,archive -d=. -arch=amd64 && \
+mv snapshot/linux_amd64/codeclimate-govet bin/codeclimate-govet && \
+rm -rf snapshot && \
+docker build -t codeclimate/codeclimate-govet .
+```
+
 ### Need help?
 
 For help with Govet, [check out their documentation](https://godoc.org/golang.org/x/tools/cmd/vet).
