@@ -66,7 +66,7 @@ func main() {
 						Categories:        []string{"Bug Risk"},
 						Location: &engine.Location{
 							Path: strings.SplitAfter(path, rootPath)[1],
-							Lines: &engine.Position{
+							Lines: &engine.LinesOnlyPosition{
 								Begin: lineNo,
 								End:   lineNo,
 							},
