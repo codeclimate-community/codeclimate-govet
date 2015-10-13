@@ -12,14 +12,11 @@ govet examines Go source code and reports suspicious constructs, such as Printf 
 
 ### Building
 
-In order to build the docker image, you first need to compile a binary for the container. To do that, first [install goxc]() and then run
-
 ```console
-goxc -bc="linux" -tasks-=go-install,go-vet,go-test,package,archive -d=. -arch=amd64 && \
-mv snapshot/linux_amd64/codeclimate-govet bin/codeclimate-govet && \
-rm -rf snapshot && \
-docker build -t codeclimate/codeclimate-govet .
+./bin/build
 ```
+
+This will build a `codeclimate/codeclimate-govet` image locally
 
 ### Need help?
 
