@@ -62,7 +62,7 @@ func main() {
 						Type:              "issue",
 						Check:             "GoVet/BugRisk",
 						Description:       strings.Join(pieces[2:], ":"),
-						RemediationPoints: 500,
+						RemediationPoints: 50000,
 						Categories:        []string{"Bug Risk"},
 						Location: &engine.Location{
 							Path: strings.SplitAfter(path, rootPath)[1],
