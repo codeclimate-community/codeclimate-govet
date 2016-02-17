@@ -5,35 +5,21 @@ import "strings"
 import "os"
 import "os/exec"
 import "strconv"
-import "sort"
 
 func main() {
 	rootPath := "/code/"
-	analysisFiles, err := engine.GoFileWalk(rootPath)
-	if err != nil {
-		os.Exit(1)
-	}
 
 	config, err := engine.LoadConfig()
 	if err != nil {
 		os.Exit(1)
 	}
 
-	excludedFiles := []string{}
-	if config["exclude_paths"] != nil {
-		for _, file := range config["exclude_paths"].([]interface{}) {
-			excludedFiles = append(excludedFiles, file.(string))
-		}
-		sort.Strings(excludedFiles)
+	analysisFiles, err := engine.GoFileWalk(rootPath, engine.IncludePaths(rootPath, config))
+	if err != nil {
+		os.Exit(1)
 	}
 
 	for _, path := range analysisFiles {
-		relativePath := strings.SplitAfter(path, rootPath)[1]
-		i := sort.SearchStrings(excludedFiles, relativePath)
-		if i < len(excludedFiles) && excludedFiles[i] == relativePath {
-			continue
-		}
-
 		cmd := exec.Command("go", "tool", "vet", path)
 
 		out, err := cmd.CombinedOutput()
