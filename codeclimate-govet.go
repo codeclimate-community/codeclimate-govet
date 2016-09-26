@@ -1,21 +1,26 @@
 package main
 
-import "github.com/codeclimate/cc-engine-go/engine"
-import "strings"
-import "os"
-import "os/exec"
-import "strconv"
+import (
+	"github.com/codeclimate/cc-engine-go/engine"
+	"strings"
+	"os"
+	"os/exec"
+	"strconv"
+	"fmt"
+)
 
 func main() {
 	rootPath := "/code/"
 
 	config, err := engine.LoadConfig()
 	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error loading config: %v\n", err)
 		os.Exit(1)
 	}
 
 	analysisFiles, err := engine.GoFileWalk(rootPath, engine.IncludePaths(rootPath, config))
 	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error initializing: %v\n", err)
 		os.Exit(1)
 	}
 
@@ -23,8 +28,18 @@ func main() {
 		cmd := exec.Command("go", "tool", "vet", path)
 
 		out, err := cmd.CombinedOutput()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error analyzing path: %v\n", path)
+			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
+
+			if out != nil {
+				s := string(out[:])
+				fmt.Fprintf(os.Stderr, "Govet output: %v\n", s)
+			}
+		}
+
+
 		if err != nil && err.Error() != "exit status 1" {
-			// engine.PrintWarning()
 			return
 		}
 
@@ -35,12 +50,13 @@ func main() {
 				pieces := strings.Split(line, ":")
 
 				if len(pieces) < 3 {
-					// engine.PrintWarning()
+					fmt.Fprintf(os.Stderr, "Unexpected format for the following output: %v\n", line)
 					return
 				} else {
 					lineNo, err := strconv.Atoi(pieces[1])
 					if err != nil {
-						// engine.PrintWarning()
+						fmt.Fprintf(os.Stderr, "Unexpected format for the following output: %v\n", line)
+						fmt.Fprintf(os.Stderr, "\nError: %v\n", err)
 						return
 					}
 
