@@ -28,7 +28,8 @@ func main() {
 		cmd := exec.Command("go", "tool", "vet", path)
 
 		out, err := cmd.CombinedOutput()
-		if err != nil {
+
+		if err != nil && err.Error() != "exit status 1" {
 			fmt.Fprintf(os.Stderr, "Error analyzing path: %v\n", path)
 			fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 
@@ -36,10 +37,7 @@ func main() {
 				s := string(out[:])
 				fmt.Fprintf(os.Stderr, "Govet output: %v\n", s)
 			}
-		}
 
-
-		if err != nil && err.Error() != "exit status 1" {
 			return
 		}
 
