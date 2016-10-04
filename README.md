@@ -20,6 +20,6 @@ This will build a `codeclimate/codeclimate-govet` image locally
 
 ### Need help?
 
-For help with Govet, [check out their documentation](https://godoc.org/golang.org/x/tools/cmd/vet).
+For help with Govet, [check out their documentation](https://golang.org/cmd/vet/).
 
 If you're running into a Code Climate issue, first look over this project's [GitHub Issues](https://github.com/codeclimate/codeclimate-govet/issues), as your question may have already been covered. If not, [go ahead and open a support ticket with us](https://codeclimate.com/help).
