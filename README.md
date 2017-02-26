@@ -1,6 +1,6 @@
 # Code Climate Govet Engine
 
-`codeclimate-govet` is a Code Climate engine that wraps [govet](https://godoc.org/golang.org/x/tools/cmd/vet). You can run it on your command line using the Code Climate CLI, or on our hosted analysis platform.
+`codeclimate-govet` is a Code Climate engine that wraps [govet](https://golang.org/cmd/vet). You can run it on your command line using the Code Climate CLI, or on our hosted analysis platform.
 
 govet examines Go source code and reports suspicious constructs, such as Printf calls whose arguments do not align with the format string. Vet uses heuristics that do not guarantee all reports are genuine problems, but it can find errors not caught by the compilers.
 
