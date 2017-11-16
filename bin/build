@@ -2,7 +2,7 @@
 set -ex
 
 IMAGE="$1"
-: "${IMAGE:=codeclimate/codeclimate-govet}"
+: "${IMAGE:=codeclimate/codeclimate-gofmt}"
 
 DIR=$( cd "$( dirname "${0}" )" && pwd )
 SRC_ROOT=$( cd "$DIR/.." && pwd )
@@ -11,7 +11,7 @@ cd "$SRC_ROOT"
 BUILD_SCRIPT="cd /src && "\
 "go get -t -d -v ./... && "\
 "rm -rf build && mkdir build && "\
-"go build -o build/codeclimate-govet ."
+"go build -o build/codeclimate-gofmt ."
 
 docker run -v "$SRC_ROOT:/src" golang:latest /bin/sh -c "$BUILD_SCRIPT"
 

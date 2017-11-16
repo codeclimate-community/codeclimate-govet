@@ -13,10 +13,18 @@ govet examines Go source code and reports suspicious constructs, such as Printf 
 ### Building
 
 ```console
-./bin/build
+make image
 ```
 
 This will build a `codeclimate/codeclimate-govet` image locally
+
+### Updating
+
+`govet` is a part of the Go distribution and shares version with it. Once in a
+while a new version of Go gets packaged. In order to get the latest version
+and force a new docker image build, please update the base image in the
+`Dockerfile`. Please avoid any unstable tags such as `latest` and keep it
+explicit.
 
 ### Need help?
 

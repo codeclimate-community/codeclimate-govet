@@ -1,0 +1,13 @@
+{
+  "name": "govet",
+  "description": "Go vet examines Go source code and reports suspicious constructs, such as Printf calls whose arguments do not align with the format string. Go vet uses heuristics that do not guarantee all reports are genuine problems, but it can find errors not caught by the compilers.",
+  "maintainer": {
+    "name": "Code Climate",
+    "email": "hello@codeclimate.com"
+  },
+  "languages": [
+    "Go"
+  ],
+  "version": "1.0.0",
+  "spec_version": "0.3.1"
+}
