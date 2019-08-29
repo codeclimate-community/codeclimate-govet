@@ -1,4 +1,4 @@
-ARG BASE=1.9.3-alpine3.7
+ARG BASE=1.12.5-alpine3.9
 FROM golang:${BASE} as build
 
 WORKDIR /usr/src/app
@@ -10,17 +10,16 @@ RUN export go_version=$(go version | cut -d ' ' -f 3) && \
 
 COPY codeclimate-govet.go ./
 RUN apk add --no-cache git
-RUN go get -t -d -v ./...
+RUN go get -t -d -v .
 RUN go build -o codeclimate-govet .
 
 
 FROM golang:${BASE}
-
 LABEL maintainer="Code Climate <hello@codeclimate.com>"
 
-WORKDIR /usr/src/app
-
 RUN adduser -u 9000 -D app
+
+WORKDIR /usr/src/app
 
 COPY --from=build /usr/src/app/engine.json /
 COPY --from=build /usr/src/app/codeclimate-govet ./
