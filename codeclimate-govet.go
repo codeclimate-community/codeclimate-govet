@@ -25,7 +25,7 @@ func main() {
 	}
 
 	for _, path := range analysisFiles {
-		cmd := exec.Command("go", "tool", "vet", path)
+		cmd := exec.Command("go", "vet", path)
 
 		out, err := cmd.CombinedOutput()
 
