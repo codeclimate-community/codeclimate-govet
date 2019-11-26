@@ -4,7 +4,7 @@ jobs:
   build:
     machine:
       docker_layer_caching: false
-    working_directory: ~/codeclimate/codeclimate-gotvet
+    working_directory: ~/codeclimate/codeclimate-govet
     steps:
       - checkout
       - run: make image
@@ -12,7 +12,7 @@ jobs:
   release_images:
     machine:
       docker_layer_caching: false
-    working_directory: ~/codeclimate/codeclimate-gotvet
+    working_directory: ~/codeclimate/codeclimate-govet
     steps:
       - checkout
       - run:
@@ -28,9 +28,9 @@ jobs:
       - run:
           name: Push image to GCR
           command: |
-            docker tag codeclimate/codeclimate-gotvet \
-              us.gcr.io/code-climate/codeclimate-gotvet:b$CIRCLE_BUILD_NUM
-            docker push us.gcr.io/code-climate/codeclimate-gotvet:b$CIRCLE_BUILD_NUM
+            docker tag codeclimate/codeclimate-govet \
+              us.gcr.io/code-climate/codeclimate-govet:b$CIRCLE_BUILD_NUM
+            docker push us.gcr.io/code-climate/codeclimate-govet:b$CIRCLE_BUILD_NUM
 
 workflows:
   version: 2
