@@ -9,7 +9,7 @@ RUN export go_version=$(go version | cut -d ' ' -f 3) && \
     cat engine.json.template | jq '.version = .version + "/" + env.go_version' > ./engine.json
 
 COPY codeclimate-govet.go go.mod go.sum ./
-# RUN apk add --no-cache git
+
 RUN go build -o codeclimate-govet .
 
 FROM golang:${BASE}
@@ -17,7 +17,6 @@ FROM golang:${BASE}
 LABEL maintainer="Code Climate <hello@codeclimate.com>"
 
 WORKDIR /usr/src/app
-
 COPY --from=build /usr/src/app/engine.json /
 COPY --from=build /usr/src/app/codeclimate-govet ./
 
