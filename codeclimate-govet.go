@@ -1,20 +1,30 @@
 package main
 
 import (
-	"github.com/codeclimate/cc-engine-go/engine"
-	"strings"
+	"fmt"
 	"os"
 	"os/exec"
 	"strconv"
-	"fmt"
+	"strings"
+
+	"github.com/codeclimate/cc-engine-go/engine"
 )
 
 func main() {
-	rootPath := "/code/"
+	rootPath, err := os.Getwd()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error getting working directory: %v\n", err)
+		os.Exit(1)
+	}
 
 	config, err := engine.LoadConfig()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error loading config: %v\n", err)
+		os.Exit(1)
+	}
+
+	if err := exec.Command("go", "mod", "download").Run(); err != nil {
+		fmt.Fprintf(os.Stderr, "Error downloading dependencies: %v\n", err)
 		os.Exit(1)
 	}
 
